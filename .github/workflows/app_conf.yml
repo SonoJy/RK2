@@ -1,0 +1,29 @@
+name: RK2
+run-name: compiling
+on: [push]
+jobs:
+  rk2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: build basis
+        run: |
+          cmake -H. -B_build
+          cmake --build _build
+      - name: Run necessary coding
+        run: |
+          ./_build/it1
+          ./_build/it2
+      - name: Create zip with data
+        uses: actions/upload-artifact@v4
+        with:
+          name: data
+          path: _build/it*
+      - name: Test result
+        run: |
+          cmake -H. -B_build -DBUILD_TEST=ON
+          cmake --build _build
+          cmake --build _build --target test -- ARGS=--verbose

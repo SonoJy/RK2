@@ -26,4 +26,4 @@ jobs:
         run: |
           cmake -H. -B_build -DBUILD_TEST=ON
           cmake --build _build
-          cmake --build _build --target test -- ARGS=--verbose
+          

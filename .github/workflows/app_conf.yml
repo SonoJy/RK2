@@ -24,7 +24,7 @@ jobs:
           path: _build/it*
       - name: Test result
         run: |
-          cmake -H. -B_build -DBUILD_TEST=ON
+          cmake -H. -B_build -DBUILD_TESTS=ON
           cmake --build _build
-          cmake --build _build -- ARGS=--verbose
+          cmake --build _build --target test -- ARGS=--verbose
           
